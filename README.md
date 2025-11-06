@@ -151,7 +151,7 @@ Distributed under the MIT License. See [`LICENSE.txt`][license-url] for details.
 
 If you have any questions, feedback, or just want to get in touch, feel free to reach out to me via email. Your feedback is appreciated as it helps me to continue improving.
 
-- Email: <erinaudo.gh@w.ernode.com>  
+- Email: [erinaudo.gh@w.ernode.com](mailto:erinaudo.gh@w.ernode.com)
 
 You can also explore my GitHub profile.
 
@@ -164,12 +164,12 @@ You can also explore my GitHub profile.
 **Happy coding!**
 
 <!-- SHIELDS -->
-[stars-shield]: https://img.shields.io/github/stars/E-Rinaudo/thermo-tracker.svg?style=flat
-[stars-url]: https://github.com/E-Rinaudo/thermo-tracker/stargazers
-[license-shield]: https://img.shields.io/github/license/E-Rinaudo/thermo-tracker.svg?style=flat
-[license-url]: https://github.com/E-Rinaudo/thermo-tracker/blob/main/LICENSE.txt
+[stars-shield]: https://img.shields.io/github/stars/E-Rinaudo/AutoClicker.svg?style=flat
+[stars-url]: https://github.com/E-Rinaudo/AutoClicker/stargazers
+[license-shield]: https://img.shields.io/github/license/E-Rinaudo/AutoClicker.svg?style=flat
+[license-url]: https://github.com/E-Rinaudo/AutoClicker/blob/main/LICENSE.txt
 [ProtonMail-shield]: https://img.shields.io/badge/Proton%20Mail-6D4AFF?logo=protonmail&logoColor=fff
-[ProtonMail-url]: erinaudo.gh@w.ernode.com
+[ProtonMail-url]: mailto:erinaudo.gh@w.ernode.com
 
 <!-- BADGES -->
 [Python-badge]: https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54&style=flat
