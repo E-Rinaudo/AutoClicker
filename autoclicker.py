@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Simple personal auto clicker."""
+"""Simple auto clicker."""
 
 import sys
 import time
@@ -10,7 +10,7 @@ import pyautogui  # type: ignore
 import constants as cons
 
 
-class Clicker:
+class AutoClicker:
     """A simple auto clicker that clicks at the current mouse position."""
 
     def start_clicker(self) -> None:
@@ -27,7 +27,7 @@ class Clicker:
 
     def _quit_early(self) -> None:
         """Quits the program if the clicker was not started."""
-        print("Clicker not started. Restart the program to run again.")
+        print("\nClicker not started. Restart the program to run again.")
         sys.exit(0)
 
     def run_clicker(self) -> None:
@@ -47,7 +47,7 @@ class Clicker:
                 now = time.monotonic()
                 if now - starting_time >= cons.TIME_ELAPSED:
                     if self._stop_clicking():
-                        print("Program stopped by user. Exiting...")
+                        print("\nProgram stopped by user. Exiting...")
                         sys.exit(0)
                     else:
                         time.sleep(cons.PAUSE_TIME)  # Pause to avoid immediate clicks.
@@ -58,7 +58,7 @@ class Clicker:
             sys.exit(0)
 
     def _stop_clicking(self) -> bool:
-        """Prompts the user whether they want stop the app.
+        """Prompts the user whether they want stop the application.
 
         Returns:
             True if user wants to quit the clicker; False otherwise.
@@ -67,7 +67,7 @@ class Clicker:
 
 
 if __name__ == "__main__":
-    auto_clicker = Clicker()
+    auto_clicker = AutoClicker()
 
     try:
         auto_clicker.start_clicker()
