@@ -3,26 +3,110 @@
 from pathlib import Path
 from enum import StrEnum, IntEnum
 
-START_MSG = """
-Press OK to START the AutoClicker.
 
-Then, you will have 5 seconds to move the mouse desired position.
+class Timing(IntEnum):
+    """Timing related constants for the AutoClicker.
 
-If you enabled the 10-second pause option, the program will periodically ask whether to continue.
+    Attributes:
+        COUNTDOWN (int): Seconds before clicking starts.
+        PAUSE_TIME (int): Pause duration after resuming clicking.
+        CLICKS_INTERVAL (float): Delay between each automated click.
+        TIME_ELAPSED (float): Interval to trigger optional pause dialog.
+    """
 
-You can always move the mouse to any corner of the screen to stop the program immedidately.
-"""
-STOP_MSG = """
-Press CANCEL to quit, or OK to continue clicking.
+    COUNTDOWN = 5
+    PAUSE_TIME = 2
+    CLICKS_INTERVAL = 0.2
+    TIME_ELAPSED = 10.0
 
-If you press OK, you will have 2 seconds to move the cursor back to the desired position.
-"""
-START_CLICKING = "OK"
-STOP_CLICKING = "Cancel"
 
-COUNTDOWN = 5
-PAUSE_TIME = 2
-CLICKS_INTERVAL = 0.2
-TIME_ELAPSED = 10.0
+class GuiText(StrEnum):
+    """GUI messages and button labels displayed to the user.
 
-SOUND_PATH = Path(__file__).resolve().parent / "sound/stop.ogg"
+    Attributes:
+        START_MSG (str): Message shown before clicking starts.
+        STOP_MSG (str): Message shown when pausing to ask whether to continue.
+        START_CLICKING (str): Label for confirming to start clicking.
+        STOP_CLICKING (str): Label for canceling or stopping the clicker.
+    """
+
+    START_MSG = """
+    Press OK to START the AutoClicker.
+
+    Then, you will have 5 seconds to position the cursor.
+
+    If you enabled the 10-second pause option, the program will periodically ask whether to continue clicking.
+
+    You can always move the mouse to any screen corner to quit immedidately.
+    """
+    STOP_MSG = """
+    Press CANCEL to quit, or OK to continue clicking.
+
+    If you press OK, you have 2 seconds to move the cursor back to the desired position.
+    """
+    START_CLICKING = "OK"
+    STOP_CLICKING = "Cancel"
+
+
+class ArgsText(StrEnum):
+    """Command-line argument names and help messages.
+
+    Attributes:
+        ARGS_DESCRIPTION (str): Description shown in argparse help.
+        PAUSE_ARG_NAME (str): Name of the pause flag.
+        PAUSE_ARG_HELP (str): Help text for the pause flag.
+        SOUND_ARG_NAME (str): Name of the sound flag.
+        SOUND_ARG_HELP (str): Help text for the sound flag.
+    """
+
+    ARGS_DESCRIPTION = "Simple auto clicker."
+    PAUSE_ARG_NAME = "--pause-every-10"
+    PAUSE_ARG_HELP = (
+        "Enable periodic 10-second pauses to check if the user wants to continue clicking."
+    )
+    SOUND_ARG_NAME = "--sound-on-exit"
+    SOUND_ARG_HELP = "Path to a sound file to play when the program stops if the program stops via PyAutoGUI failsafe. Defaults to a ping sound."
+
+
+class RuntimeMsgs(StrEnum):
+    """Messages displayed during program execution.
+
+    Attributes:
+        COUNTDOWN_MSG (str): Countdown message before clicking starts.
+        CLICKING (str): Message shown when clicking begins.
+    """
+
+    COUNTDOWN_MSG = f"\nStarting clicking in {Timing.COUNTDOWN} seconds..."
+    CLICKING = "\nClicking..."
+
+
+class ExitMsg(StrEnum):
+    """Messages printed when the program exits or is interrupted.
+
+    Attributes:
+        QUIT_EARLY_MSG (str): Message when the user cancels before starting.
+        QUIT_MSG (str): Message when the user stops the clicker manually.
+        FAILSAFE_QUIT_MSG (str): Message when PyAutoGUI failsafe is triggered.
+        CTRLC_QUIT_MSG (str): Message when interrupted with Ctrl+C.
+    """
+
+    QUIT_EARLY_MSG = "\nClicker not started. Restart the program to run again."
+    QUIT_MSG = "\nProgram stopped by user. Exiting..."
+    FAILSAFE_QUIT_MSG = "\nMouse moved to a corner. Exiting program."
+    CTRLC_QUIT_MSG = "\nProgram interrupted by user. Exiting..."
+
+
+class SoundCons(StrEnum):
+    """Sound-related constants and messages.
+
+    Attributes:
+        SOUND_PATH (Path): Default path to the bundled sound file.
+        WRONG_SOUND_PATH (str): Warning shown if the provided sound path is invalid.
+        SOUND_NOT_PLAYED (str): Message shown if playing the sound fails.
+    """
+
+    SOUND_PATH = Path(__file__).resolve().parent / "sound" / "stop.ogg"
+    WRONG_SOUND_PATH = (
+        "\n⚠️Warning: Sound file not found at '{expanded_path}'. Falling back to default sound.\n"
+    )
+    SOUND_NOT_PLAYED = "Sound failed to play ({err})."
