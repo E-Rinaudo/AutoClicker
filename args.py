@@ -27,7 +27,7 @@ class ClickerArgs:
         self._add_pause_argument()
         self._add_sound_argument()
         self.args = self.parser.parse_args()
-        self._clean_sound_path()
+        self._process_sound_path()
         return self.args
 
     def _add_pause_argument(self) -> None:
