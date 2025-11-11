@@ -28,7 +28,9 @@
 
 ## About
 
-This project provides a minimal GUI to start an automated click loop, waits a short countdown to position the cursor, then clicks repeatedly until you stop it. It is useful for automated repetitive tasks.
+This project provides a minimal GUI to start an automated click loop.
+After starting the program, you have a few seconds to position the cursor, then clicking begins and continues until stopped manually.
+The script uses argparse to optionally enable a periodic pause dialog and allows specifying a sound file that plays when PyAutoGUI’s fail-safe is triggered.
 
 [back to top](#autoclicker)
 
@@ -38,8 +40,9 @@ This project provides a minimal GUI to start an automated click loop, waits a sh
 
 - Start/stop via a small confirmation dialog.
 - Countdown before clicking begins so you can position the cursor.
-- Periodic confirmation prompts so the script doesn't run unattended.
-- Move the mouse to any screen corner to immediately abort.
+- Optional 10-second pause prompts.
+- Short sound alert when PyAutoGUI’s fail-safe stops the program.
+- Move the mouse to any screen corner to immediately abort (PyAutoGUI fail-safe feature).
 
 [back to top](#autoclicker)
 
@@ -73,7 +76,7 @@ This project provides a minimal GUI to start an automated click loop, waits a sh
 > On Linux GUI automation behavior differs across display servers:
 >
 > - X11: PyAutoGUI works reliably.
-> - Wayland: PyAutoGUI may not move the real cursor; consider running on X11.
+> - Wayland: PyAutoGUI may not move the real cursor.
 
 ### Setup
 
@@ -118,20 +121,22 @@ Or use the provided shell script:
 1. Start the program.
 2. Click "OK" in the start dialog.
 3. Move the mouse to the target location; a short countdown starts.
-4. The program will begin clicking repeatedly at the current cursor position.
-5. Every 10 seconds a dialog appears asking whether to continue or stop.
-6. Move your mouse into any screen corner to trigger PyAutoGUI's failsafe and abort immediately.
+4. By default, AutoClicker clicks continuously after the countdown.
+5. To enable periodic pause prompts, use the argparse option: python autoclicker.py --pause-every-10
+6. Move your mouse into any screen corner to trigger PyAutoGUI’s fail-safe and stop the program immediately.
+   You can provide a custom sound using --sound-on-exit=path; else a default one will be played.
 
 ### Code Example
 
 An example from `autoclicker.py` showing the main workflow:
 
 ```py
-auto_clicker = Clicker()
+args = parse_args()
+auto_clicker = AutoClicker()
 
 try:
     auto_clicker.start_clicker()
-    auto_clicker.run_clicker()
+    auto_clicker.run_clicker(pause=args.pause_every_10, sound_path=args.sound_on_exit)
 except KeyboardInterrupt:
     print("\nProgram interrupted by user. Exiting...")
     sys.exit(0)
