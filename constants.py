@@ -1,6 +1,6 @@
 """Constants for the AutoClicker program."""
 
-import os
+from pathlib import Path
 from enum import StrEnum, IntEnum
 
 START_MSG = """
@@ -25,4 +25,4 @@ PAUSE_TIME = 2
 CLICKS_INTERVAL = 0.2
 TIME_ELAPSED = 10.0
 
-SOUND_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sound/stop.ogg")
+SOUND_PATH = Path(__file__).resolve().parent / "sound/stop.ogg"

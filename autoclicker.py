@@ -9,12 +9,11 @@ import pyautogui  # type: ignore
 from playsound3 import playsound, playsound3
 
 import constants as cons
-from args import parse_args
+from args import ClickerArgs
 
 
 # Add constants for all files' strings.
 # Create an enum and put all fucking strings in there.
-# Crea degli helper in args.py
 # Read all files to make sure it's ok. README included.
 # make sure it works.
 # check with pylint etc
@@ -36,9 +35,9 @@ class AutoClicker:
             sound_path: Path to a sound file to play when the program stops if
                 the user triggered PyAutoGUI's failsafe feature.
         """
-        args = parse_args()
-        self.pause = args.pause_every_10
-        self.sound_path = args.sound_on_exit
+        clicker_args = ClickerArgs().parse_args()
+        self.pause = clicker_args.pause_every_10
+        self.sound_path = clicker_args.sound_on_exit
 
     def start_clicker(self) -> None:
         """Asks the user to start the clicker."""
