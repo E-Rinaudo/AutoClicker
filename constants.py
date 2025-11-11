@@ -1,10 +1,16 @@
+# region Module Description And Imports.
 """Constants for the AutoClicker program."""
 
+from enum import IntEnum, StrEnum
 from pathlib import Path
-from enum import StrEnum, IntEnum
+from textwrap import dedent
+
+# endregion.
+
+# region AutoClicker Constants.
 
 
-class Timing(IntEnum):
+class Timings(IntEnum):
     """Timing related constants for the AutoClicker.
 
     Attributes:
@@ -20,7 +26,7 @@ class Timing(IntEnum):
     TIME_ELAPSED = 10.0
 
 
-class GuiText(StrEnum):
+class GuiTexts(StrEnum):
     """GUI messages and button labels displayed to the user.
 
     Attributes:
@@ -35,21 +41,24 @@ class GuiText(StrEnum):
 
     Then, you will have 5 seconds to position the cursor.
 
-    If you enabled the 10-second pause option, the program will periodically ask whether to continue clicking.
+    If you enabled the 10-second pause option, the program
+    will periodically ask whether to continue clicking.
 
-    You can always move the mouse to any screen corner to quit immedidately.
+    You can always move the mouse to any screen corner
+    to quit immedidately.
     """
     STOP_MSG = """
     Press CANCEL to quit, or OK to continue clicking.
 
-    If you press OK, you have 2 seconds to move the cursor back to the desired position.
+    If you press OK, you have 2 seconds to move the cursor
+    back to the desired position.
     """
     START_CLICKING = "OK"
     STOP_CLICKING = "Cancel"
 
 
 class ArgsText(StrEnum):
-    """Command-line argument names and help messages.
+    """Command-line arguments constants.
 
     Attributes:
         ARGS_DESCRIPTION (str): Description shown in argparse help.
@@ -61,11 +70,12 @@ class ArgsText(StrEnum):
 
     ARGS_DESCRIPTION = "Simple auto clicker."
     PAUSE_ARG_NAME = "--pause-every-10"
-    PAUSE_ARG_HELP = (
-        "Enable periodic 10-second pauses to check if the user wants to continue clicking."
-    )
+    PAUSE_ARG_HELP = "Enable periodic pauses to check if the user wants to continue clicking."
     SOUND_ARG_NAME = "--sound-on-exit"
-    SOUND_ARG_HELP = "Path to a sound file to play when the program stops if the program stops via PyAutoGUI failsafe. Defaults to a ping sound."
+    SOUND_ARG_HELP = (
+        "Path to a sound file to play when PyAutoGUI failsafe stops the program. "
+        "Defaults to a ping sound."
+    )
 
 
 class RuntimeMsgs(StrEnum):
@@ -76,11 +86,11 @@ class RuntimeMsgs(StrEnum):
         CLICKING (str): Message shown when clicking begins.
     """
 
-    COUNTDOWN_MSG = f"\nStarting clicking in {Timing.COUNTDOWN} seconds..."
+    COUNTDOWN_MSG = f"\nStarting clicking in {Timings.COUNTDOWN} seconds..."
     CLICKING = "\nClicking..."
 
 
-class ExitMsg(StrEnum):
+class ExitMsgs(StrEnum):
     """Messages printed when the program exits or is interrupted.
 
     Attributes:
@@ -92,8 +102,8 @@ class ExitMsg(StrEnum):
 
     QUIT_EARLY_MSG = "\nClicker not started. Restart the program to run again."
     QUIT_MSG = "\nProgram stopped by user. Exiting..."
-    FAILSAFE_QUIT_MSG = "\nMouse moved to a corner. Exiting program."
-    CTRLC_QUIT_MSG = "\nProgram interrupted by user. Exiting..."
+    FAILSAFE_QUIT_MSG = "\nMouse moved to a corner. Exiting..."
+    CTRLC_QUIT_MSG = "\nKeyboard interrupt detected. Exiting..."
 
 
 class SoundCons(StrEnum):
@@ -105,8 +115,14 @@ class SoundCons(StrEnum):
         SOUND_NOT_PLAYED (str): Message shown if playing the sound fails.
     """
 
-    SOUND_PATH = Path(__file__).resolve().parent / "sound" / "stop.ogg"
-    WRONG_SOUND_PATH = (
-        "\n⚠️Warning: Sound file not found at '{expanded_path}'. Falling back to default sound.\n"
+    SOUND_PATH = str(Path(__file__).resolve().parent / "sound" / "stop.ogg")
+    WRONG_SOUND_PATH = "\n" + dedent(
+        """
+    ⚠️  Warning: Sound file not found at '{expanded_path}'.
+    Falling back to default sound '{default_path}'.
+    """
     )
-    SOUND_NOT_PLAYED = "Sound failed to play ({err})."
+    SOUND_NOT_PLAYED = "Sound failed to play ({error})."
+
+
+# endregion.

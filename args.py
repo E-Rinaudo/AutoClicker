@@ -1,3 +1,4 @@
+# region Module Description And Imports.
 """Module for parsing command-line arguments for the auto clicker."""
 
 import argparse
@@ -5,13 +6,21 @@ from pathlib import Path
 
 import constants as cons
 
+# Aliases for the Enums of constants.py.
+ArgsText = cons.ArgsText
+SoundCons = cons.SoundCons
 
-class ClickerArgs:
+# endregion
+
+# region AutoClicker Command Line Arguments.
+
+
+class ClickerArgs:  # pylint: disable=too-few-public-methods
     """Class to hold command-line arguments.
 
     Attributes:
         parser (argparse.ArgumentParser): The argument parser instance.
-        args (argparse.Namespace):
+        args (argparse.Namespace): The parsed arguments.
     """
 
     parser: argparse.ArgumentParser
@@ -19,11 +28,15 @@ class ClickerArgs:
 
     def __init__(self) -> None:
         """Initializes the argument parser."""
-        self.parser = argparse.ArgumentParser(description="Simple auto clicker.")
+        self.parser = argparse.ArgumentParser(description=ArgsText.ARGS_DESCRIPTION)
         self.args = argparse.Namespace()
 
     def parse_args(self) -> argparse.Namespace:
-        """Parses command-line arguments."""
+        """Parses command-line arguments.
+
+        Returns:
+            The parsed arguments.
+        """
         self._add_pause_argument()
         self._add_sound_argument()
         self.args = self.parser.parse_args()
@@ -31,21 +44,21 @@ class ClickerArgs:
         return self.args
 
     def _add_pause_argument(self) -> None:
-        """Adds the pause every 10 seconds argument to the parser."""
+        """Adds the pause-every-10 seconds argument to the parser."""
         self.parser.add_argument(
-            "--pause-every-10",
+            ArgsText.PAUSE_ARG_NAME,
             action="store_true",
-            help="If set, the clicker will pause every 10 seconds to check if the user wants to continue or stop clicking.",
+            help=ArgsText.PAUSE_ARG_HELP,
         )
 
     def _add_sound_argument(self) -> None:
-        """Adds the sound on exit argument to the parser."""
+        """Adds the sound-on-exit argument to the parser."""
         self.parser.add_argument(
-            "--sound-on-exit",
+            ArgsText.SOUND_ARG_NAME,
             metavar="PATH",
             type=str,
-            default=cons.SOUND_PATH,
-            help="Path to a sound file to play when the program stops if the user triggered PyAutoGUI's failsafe feature. Defaults to a ping sound.",
+            default=SoundCons.SOUND_PATH,
+            help=ArgsText.SOUND_ARG_HELP,
         )
 
     def _process_sound_path(self) -> None:
@@ -55,7 +68,7 @@ class ClickerArgs:
         """
         sound_path = self.args.sound_on_exit
 
-        if sound_path == cons.SOUND_PATH:
+        if sound_path == SoundCons.SOUND_PATH:
             return  # Skip validation if using the default path
 
         expanded_path = Path(sound_path).expanduser()
@@ -63,9 +76,13 @@ class ClickerArgs:
         # Validate path.
         if not expanded_path.exists():
             print(
-                f"\n Warning: Sound file not found at '{expanded_path}'. "
-                f"Falling back to default sound.\n"
+                SoundCons.WRONG_SOUND_PATH.format(
+                    expanded_path=expanded_path, default_path=SoundCons.SOUND_PATH
+                )
             )
-            self.args.sound_on_exit = cons.SOUND_PATH
+            self.args.sound_on_exit = SoundCons.SOUND_PATH
         else:
             self.args.sound_on_exit = str(expanded_path)
+
+
+# endregion.
