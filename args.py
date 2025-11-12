@@ -76,25 +76,46 @@ class ClickerArgs:  # pylint: disable=too-few-public-methods
                 self._validate_custom_path(sound_path)
 
     def _validate_custom_path(self, custom_path: str) -> None:
-        """Expands and checks custom file, falls back to default if not found.
+        """Validates a custom sound path, falling back to default if invalid.
 
         Args:
             custom_path: The custom sound file path to validate.
         """
-        expanded_path = Path(custom_path).expanduser()
+        expanded_path = self._expand_path(custom_path)
 
-        if not expanded_path.exists():
+        if expanded_path is None:
             print(
                 SoundCons.INVALID_SOUND_PATH.format(
-                    custom_path=expanded_path, default_path=SoundCons.DEFAULT_SOUND_PATH
+                    custom_path=custom_path, default_path=SoundCons.DEFAULT_SOUND_PATH
                 ),
                 end="",
             )
             self._set_path(
-                SoundCons.DEFAULT_SOUND_PATH, LogMsgs.INVALID_SOUND_PATH.format(path=expanded_path)
+                SoundCons.DEFAULT_SOUND_PATH, LogMsgs.INVALID_SOUND_PATH.format(path=custom_path)
             )
         else:
-            self._set_path(str(expanded_path), LogMsgs.CUSTOM_SOUND_SET.format(path=expanded_path))
+            self._set_path(expanded_path, LogMsgs.CUSTOM_SOUND_SET.format(path=expanded_path))
+
+    def _expand_path(self, custom_path: str) -> str | None:
+        """Expands a user-provided path.
+
+        Args:
+            custom_path: The sound path string provided by the user.
+
+        Returns:
+            Custom path if valid, None if expansion fails or path doesn't exist.
+        """
+        try:
+            sound_path = Path(custom_path).expanduser()
+        except RuntimeError:
+            logging.error(LogMsgs.RUNTIME_ERR, custom_path)
+            return None
+
+        if not sound_path.exists():
+            logging.error(LogMsgs.SOUND_NOT_FOUND_ERR.format(path=sound_path))
+            return None
+
+        return str(sound_path)
 
     def _set_path(self, sound_path: str, log_msg: str) -> None:
         """Sets the sound path after validation.

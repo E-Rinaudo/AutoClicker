@@ -149,20 +149,24 @@ class LogMsgs(StrEnum):
         USING_DEFAULT_SOUND (str): Log message when using the default sound file.
         INVALID_SOUND_PATH (str): Log message when a custom sound path is invalid.
         CUSTOM_SOUND_SET (str): Log message when a custom sound path is set.
+        RUNTIME_ERR (str): Log message for runtime errors during path expansion.
+        SOUND_NOT_FOUND_ERR (str): Log message when the sound file is not found.
     """
 
     QUIT_EARLY = "User quit before starting the clicker."
     CLICKER_STARTED = "AutoClicker started."
     QUIT = "User quit the clicker."
-    USER_CHOICE = "User clicked %s when %s was called."
+    USER_CHOICE = "User clicked %s when %s was called."  # (PyAutoGUI Button, Method Name)
     PAUSE = "Pausing to prompt user whether to keep clicking."
     RESUMED_CLICKING = "AutoClicker resumed clicking after pause."
-    SOUND_NOT_PLAYED = "Sound failed to play (%s)."
+    SOUND_NOT_PLAYED = "Sound failed to play (%s)."  # (Error)
     FAILSAFE_QUIT = "AutoClicker quit due to PyAutoGUI failsafe."
     CTRLC_QUIT_LOG = "AutoClicker quit due to KeyboardInterrupt."
     USING_DEFAULT_SOUND = "Using default sound file."
-    INVALID_SOUND_PATH = "Invalid custom path: {path}. " + USING_DEFAULT_SOUND
-    CUSTOM_SOUND_SET = "Custom sound path set to: {path}"
+    INVALID_SOUND_PATH = "Invalid custom path: {path}. " + USING_DEFAULT_SOUND  # (Custom Path)
+    CUSTOM_SOUND_SET = "Custom sound path set to: {path}"  # (Custom Path)
+    RUNTIME_ERR = "Could not determine home directory for '%s'."
+    SOUND_NOT_FOUND_ERR = "Sound file not found at '%s'."  # (Custom Path)
 
 
 # endregion.
