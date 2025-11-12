@@ -28,3 +28,6 @@ mypy.ini
 
 # VSCode
 .vscode/
+
+# App-specific
+log_file.txt
