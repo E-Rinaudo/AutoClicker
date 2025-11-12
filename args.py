@@ -87,8 +87,7 @@ class ClickerArgs:  # pylint: disable=too-few-public-methods
             print(
                 SoundCons.INVALID_SOUND_PATH.format(
                     custom_path=custom_path, default_path=SoundCons.DEFAULT_SOUND_PATH
-                ),
-                end="",
+                )
             )
             self._set_path(
                 SoundCons.DEFAULT_SOUND_PATH, LogMsgs.INVALID_SOUND_PATH.format(path=custom_path)

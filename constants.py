@@ -111,7 +111,7 @@ class ExitMsgs(StrEnum):
     QUIT_EARLY = "Clicker not started. Restart the program to run again."
     QUIT = "\nProgram stopped by user. Exiting..."
     FAILSAFE_QUIT = "\nMouse moved to a corner. Exiting..."
-    CTRLC_QUIT = "\nKeyboard interrupt detected. Exiting..."
+    CTRLC_QUIT = "\n\nKeyboard interrupt detected. Exiting..."
 
 
 class SoundCons(StrEnum):
