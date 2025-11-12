@@ -1,9 +1,9 @@
 # region Module Description And Imports.
 """Main module to run the AutoClicker application."""
 
+import logging_file
 from autoclicker import AutoClicker
 from constants import ExitMsgs, LogMsgs
-import logging_file
 
 # Set up the logging configuration.
 logging_file.logging_configuration()

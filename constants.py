@@ -165,7 +165,7 @@ class LogMsgs(StrEnum):
     USING_DEFAULT_SOUND = "Using default sound file."
     INVALID_SOUND_PATH = "Invalid custom path: {path}. " + USING_DEFAULT_SOUND  # (Custom Path)
     CUSTOM_SOUND_SET = "Custom sound path set to: {path}"  # (Custom Path)
-    RUNTIME_ERR = "Could not determine home directory for '%s'."
+    RUNTIME_ERR = "Could not determine home directory for '%s'."  # (Custom Path)
     SOUND_NOT_FOUND_ERR = "Sound file not found at '%s'."  # (Custom Path)
 
 

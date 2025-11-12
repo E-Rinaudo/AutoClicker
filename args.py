@@ -112,7 +112,7 @@ class ClickerArgs:  # pylint: disable=too-few-public-methods
             return None
 
         if not sound_path.exists():
-            logging.error(LogMsgs.SOUND_NOT_FOUND_ERR.format(path=sound_path))
+            logging.error(LogMsgs.SOUND_NOT_FOUND_ERR, sound_path)
             return None
 
         return str(sound_path)
