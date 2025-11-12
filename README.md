@@ -4,7 +4,7 @@
 [![MIT License][license-shield]][license-url]
 [![ProtonMail][ProtonMail-shield]][ProtonMail-url]
 
-**AutoClicker** is a small, cross-platform Python utility that automates repeated mouse clicks at the current cursor position. It's intended as a simple script and includes dialog so you can stop it when desired.
+**AutoClicker** is a small, cross-platform Python utility that automates repeated mouse clicks at the current cursor position. It's intended as a simple script and includes optional periodic pauses.
 
 ---
 
@@ -76,7 +76,7 @@ The script uses argparse to optionally enable a periodic pause dialog and allows
 > On Linux GUI automation behavior differs across display servers:
 >
 > - X11: PyAutoGUI works reliably.
-> - Wayland: PyAutoGUI may not move the real cursor.
+> - Wayland: PyAutoGUI may not move the cursor.
 
 ### Setup
 
@@ -103,7 +103,7 @@ pip install -r requirements.txt
 ### Run the App
 
 ```bash
-python autoclicker.py
+python main.py
 ```
 
 Or use the provided shell script:
@@ -122,24 +122,23 @@ Or use the provided shell script:
 2. Click "OK" in the start dialog.
 3. Move the mouse to the target location; a short countdown starts.
 4. By default, AutoClicker clicks continuously after the countdown.
-5. To enable periodic pause prompts, use the argparse option: python autoclicker.py --pause-every-10
+5. To enable periodic pause prompts, use the argparse option: python main.py --pause-every-10
 6. Move your mouse into any screen corner to trigger PyAutoGUI’s fail-safe and stop the program immediately.
    You can provide a custom sound using --sound-on-exit=path; else a default one will be played.
 
 ### Code Example
 
-An example from `autoclicker.py` showing the main workflow:
+An example from `main.py` showing the main workflow:
 
 ```py
-args = parse_args()
 auto_clicker = AutoClicker()
 
 try:
     auto_clicker.start_clicker()
-    auto_clicker.run_clicker(pause=args.pause_every_10, sound_path=args.sound_on_exit)
+    auto_clicker.run_clicker()
 except KeyboardInterrupt:
-    print("\nProgram interrupted by user. Exiting...")
-    sys.exit(0)
+    auto_clicker.print_and_exit(ExitMsgs.CTRLC_QUIT, LogMsgs.CTRLC_QUIT_LOG)
+
 ```
 
 [back to top](#autoclicker)
