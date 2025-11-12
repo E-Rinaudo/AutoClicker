@@ -94,7 +94,7 @@ class RuntimeMsgs(StrEnum):
         CLICKING (str): Message shown when clicking begins.
     """
 
-    COUNTDOWN_MSG = f"\nStarting clicking in {Timings.COUNTDOWN} seconds..."
+    COUNTDOWN_MSG = f"Starting clicking in {Timings.COUNTDOWN} seconds..."
     CLICKING = "\nClicking..."
 
 
@@ -108,7 +108,7 @@ class ExitMsgs(StrEnum):
         CTRLC_QUIT (str): Message when interrupted with Ctrl+C.
     """
 
-    QUIT_EARLY = "\nClicker not started. Restart the program to run again."
+    QUIT_EARLY = "Clicker not started. Restart the program to run again."
     QUIT = "\nProgram stopped by user. Exiting..."
     FAILSAFE_QUIT = "\nMouse moved to a corner. Exiting..."
     CTRLC_QUIT = "\nKeyboard interrupt detected. Exiting..."
