@@ -3,6 +3,11 @@
 
 from autoclicker import AutoClicker
 from constants import ExitMsgs, LogMsgs
+import logging_file
+
+# Set up the logging configuration.
+logging_file.logging_configuration()
+logging_file.disable_logging()
 
 # endregion.
 

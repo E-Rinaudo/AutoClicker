@@ -13,13 +13,8 @@ import time
 import pyautogui  # type: ignore
 from playsound3 import playsound, playsound3
 
-import logging_file
 from args import ClickerArgs
 from constants import ExitMsgs, GuiTexts, LogMsgs, RuntimeMsgs, SoundCons, Timings
-
-# Set up the logging configuration.
-logging_file.logging_configuration()
-# logging_file.disable_logging()
 
 # endregion.
 
